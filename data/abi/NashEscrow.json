@@ -646,7 +646,7 @@
     ],
     "name": "agentAcceptDepositTransaction",
     "outputs": [],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -690,7 +690,7 @@
     ],
     "name": "cancelTransaction",
     "outputs": [],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1168,7 +1168,7 @@
     ],
     "name": "initializeWithdrawalTransaction",
     "outputs": [],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

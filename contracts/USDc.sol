@@ -3,7 +3,7 @@
 /**
  *Submitted for verification at Etherscan.io on 2020-01-31
  */
-pragma solidity 0.8.24;
+pragma solidity 0.8.26;
 
 // import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -23,7 +23,7 @@ contract USDc is ERC20, Ownable {
      * @param account the account to mint tokens to.
      * @param amount the amount of tokens to mint.
      */
-    function mint(address account, uint256 amount) public onlyOwner {
+    function mint(address account, uint256 amount) external onlyOwner {
         _mint(account, amount);
     }
 }

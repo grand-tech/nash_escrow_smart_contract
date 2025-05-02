@@ -1,20 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
-
-pragma solidity 0.8.24;
+pragma solidity 0.8.26;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
-import "hardhat/console.sol";
 
-contract NashEscrow is
-    Initializable,
-    OwnableUpgradeable,
-    ReentrancyGuardUpgradeable
-{
-    uint256 private nextTransactionID;
 
-    uint256 private successfulTransactionsCounter;
+
+contract NashEscrow is Initializable, OwnableUpgradeable {
+    uint256 public nextTransactionID;
+
+    uint256 public successfulTransactionsCounter;
 
     event AgentPairingEvent(NashTransaction wtx);
 
@@ -31,6 +27,20 @@ contract NashEscrow is
     event SavedClientCommentEvent(NashTransaction wtx);
 
     event TransactionCanceledEvent(NashTransaction wtx);
+
+    uint256 private constant NON_REENTRANT_SLOT = 0xDEADBEEF;
+
+    uint16 constant private PAGINATION_COUNT = 15;
+
+    modifier nonReentrant() {
+        assembly {
+            if eq(tload(NON_REENTRANT_SLOT), 1) {
+                revert(0, 0)
+            }
+            tstore(NON_REENTRANT_SLOT, 1)
+        }
+        _;
+    }
 
     // Maps unique payment IDs to escrowed payments.
     // These payment IDs are the temporary wallet addresses created with the escrowed payments.
@@ -64,16 +74,16 @@ contract NashEscrow is
      **/
     struct NashTransaction {
         uint256 id;
-        TransactionType txType;
+        uint256 amount;
         address clientAddress;
         address agentAddress;
+        address exchangeToken;
+        TransactionType txType;
         Status status;
-        uint256 amount;
         bool agentApproval;
         bool clientApproval;
         string agentPaymentDetails;
         string clientPaymentDetails;
-        address exchangeToken;
         string exchangeTokenLabel;
     }
 
@@ -83,21 +93,6 @@ contract NashEscrow is
     function initialize() external initializer {
         __Context_init_unchained();
         __Ownable_init_unchained();
-        __ReentrancyGuard_init();
-    }
-
-    /**
-     * Get the number of transactions in the smart contract.
-     */
-    function getNextTransactionIndex() public view returns (uint256) {
-        return nextTransactionID;
-    }
-
-    /**
-     * Get the number of successful transactions within the smart contract.
-     */
-    function countSuccessfulTransactions() public view returns (uint256) {
-        return successfulTransactionsCounter;
     }
 
     /**
@@ -108,7 +103,7 @@ contract NashEscrow is
         uint256 _amount,
         address _exchangeToken,
         string calldata _exchangeTokenLabel
-    ) public payable nonReentrant {
+    ) external nonReentrant {
         require(_amount > 0, "Amount to withdraw must be greater than 0.");
 
         uint256 wtxID = nextTransactionID;
@@ -128,11 +123,11 @@ contract NashEscrow is
         newPayment.exchangeTokenLabel = _exchangeTokenLabel;
 
         require(
-            ERC20(_exchangeToken).transferFrom(
+            IERC20(_exchangeToken).transferFrom(
                 msg.sender,
                 address(this),
                 newPayment.amount
-            )
+            ), "Failed to send tokens!!!"
         );
 
         emit TransactionInitEvent(newPayment);
@@ -147,7 +142,7 @@ contract NashEscrow is
         uint256 _amount,
         address _exchangeToken,
         string calldata _exchangeTokenLabel
-    ) public {
+    ) external {
         require(_amount > 0, "Amount to deposit must be greater than 0.");
 
         uint256 wtxID = nextTransactionID;
@@ -177,7 +172,7 @@ contract NashEscrow is
         uint256 _transactionid,
         string calldata _paymentDetails
     )
-        public
+        external
         awaitAgentOnly(_transactionid)
         withdrawalsOnly(_transactionid)
         nonClientOnly(_transactionid)
@@ -198,13 +193,12 @@ contract NashEscrow is
         uint256 _transactionid,
         string calldata _paymentDetails
     )
-        public
-        payable
+        external
+        nonReentrant
         awaitAgentOnly(_transactionid)
         depositsOnly(_transactionid)
         nonClientOnly(_transactionid)
         balanceGreaterThanAmount(_transactionid)
-        nonReentrant
     {
         NashTransaction storage wtx = escrowTransactions[_transactionid];
 
@@ -213,11 +207,11 @@ contract NashEscrow is
         wtx.agentPaymentDetails = _paymentDetails;
 
         require(
-            ERC20(wtx.exchangeToken).transferFrom(
+            IERC20(wtx.exchangeToken).transferFrom(
                 msg.sender,
                 address(this),
                 wtx.amount
-            )
+            ), "Failed to send tokens!!"
         );
 
         emit AgentPairingEvent(wtx);
@@ -231,7 +225,7 @@ contract NashEscrow is
     function clientWritePaymentInformation(
         uint256 _transactionid,
         string calldata _comment
-    ) public clientOnly(_transactionid) awaitConfirmation(_transactionid) {
+    ) external clientOnly(_transactionid) awaitConfirmation(_transactionid) {
         NashTransaction storage wtx = escrowTransactions[_transactionid];
         wtx.clientPaymentDetails = _comment;
         emit SavedClientCommentEvent(wtx);
@@ -242,7 +236,7 @@ contract NashEscrow is
      */
     function clientConfirmPayment(
         uint256 _transactionid
-    ) public awaitConfirmation(_transactionid) clientOnly(_transactionid) {
+    ) external awaitConfirmation(_transactionid) clientOnly(_transactionid) {
         NashTransaction storage wtx = escrowTransactions[_transactionid];
 
         require(!wtx.clientApproval, "Client already confirmed payment!!");
@@ -262,7 +256,7 @@ contract NashEscrow is
      */
     function agentConfirmPayment(
         uint256 _transactionid
-    ) public awaitConfirmation(_transactionid) agentOnly(_transactionid) {
+    ) external awaitConfirmation(_transactionid) agentOnly(_transactionid) {
         NashTransaction storage wtx = escrowTransactions[_transactionid];
 
         require(!wtx.agentApproval, "Agent already confirmed payment!!");
@@ -284,9 +278,9 @@ contract NashEscrow is
         uint256 _transactionid
     )
         private
+        nonReentrant
         confirmationComplete(_transactionid)
         agentOrClientOnly(_transactionid)
-        nonReentrant
     {
         NashTransaction storage wtx = escrowTransactions[_transactionid];
         address targetAddress;
@@ -301,7 +295,7 @@ contract NashEscrow is
         wtx.status = Status.DONE;
 
         require(
-            ERC20(wtx.exchangeToken).transfer(targetAddress, wtx.amount),
+            IERC20(wtx.exchangeToken).transfer(targetAddress, wtx.amount),
             "Transaction failed."
         );
 
@@ -316,8 +310,7 @@ contract NashEscrow is
     function cancelTransaction(
         uint256 _transactionid
     )
-        public
-        payable
+        external
         nonReentrant
         clientOnly(_transactionid)
         awaitAgentOnly(_transactionid)
@@ -330,7 +323,7 @@ contract NashEscrow is
             //     "Escrows balance is less than the required amount!!!. Try agin later."
             // );
             require(
-                ERC20(wtx.exchangeToken).transfer(
+                IERC20(wtx.exchangeToken).transfer(
                     wtx.clientAddress,
                     wtx.amount
                 ),
@@ -347,7 +340,7 @@ contract NashEscrow is
      */
     function getTransactionByIndex(
         uint256 _transactionid
-    ) public view returns (NashTransaction memory) {
+    ) external view returns (NashTransaction memory) {
         NashTransaction memory wtx = escrowTransactions[_transactionid];
         return wtx;
     }
@@ -359,7 +352,7 @@ contract NashEscrow is
      */
     function getNextUnpairedTransaction(
         uint256 _transactionid
-    ) public view returns (NashTransaction memory) {
+    ) external view returns (NashTransaction memory) {
         uint256 transactionid = _transactionid;
         NashTransaction memory wtx;
 
@@ -390,12 +383,11 @@ contract NashEscrow is
      * @return the transaction in questsion.
      */
     function getTransactions(
-        uint256 _paginationCount,
         uint256 _startingPoint,
         Status _status
-    ) public view returns (NashTransaction[] memory) {
+    ) external view returns (NashTransaction[] memory) {
         uint256 startingPoint = _startingPoint;
-        uint256 paginationCount = _paginationCount;
+        uint256 paginationCount = PAGINATION_COUNT;
 
         // prevent an extravagant loop.
         if (startingPoint > nextTransactionID) {
@@ -403,13 +395,10 @@ contract NashEscrow is
         }
 
         // prevent an extravagant loop.
-        if (_paginationCount > nextTransactionID) {
+        if (PAGINATION_COUNT > nextTransactionID) {
             paginationCount = nextTransactionID;
         }
 
-        if (_paginationCount > 15) {
-            paginationCount = 15;
-        }
 
         NashTransaction[] memory transactions = new NashTransaction[](
             paginationCount
@@ -457,8 +446,8 @@ contract NashEscrow is
      */
     function checkLockedTokenAmount(
         address tokenAddress
-    ) public view returns (uint256) {
-        return ERC20(tokenAddress).balanceOf(address(this));
+    ) external view returns (uint256) {
+        return IERC20(tokenAddress).balanceOf(address(this));
     }
 
     /**
@@ -469,9 +458,9 @@ contract NashEscrow is
     function withdrawLockedTokens(
         address tokenAddress,
         uint256 amount
-    ) public onlyOwner {
+    ) external onlyOwner {
         require(
-            ERC20(tokenAddress).transfer(msg.sender, amount),
+            IERC20(tokenAddress).transfer(msg.sender, amount),
             "Error recovering tokens."
         );
     }
@@ -481,13 +470,12 @@ contract NashEscrow is
      * @return the transaction in questsion.
      */
     function getMyTransactions(
-        uint256 _paginationCount,
         uint256 _startingPoint,
         Status[] memory _status,
         address myAddress
-    ) public view returns (NashTransaction[] memory) {
+    ) external view returns (NashTransaction[] memory) {
         uint256 startingPoint = _startingPoint;
-        uint256 paginationCount = _paginationCount;
+        uint256 paginationCount = PAGINATION_COUNT;
 
         // prevent an extravagant loop.
         if (startingPoint > nextTransactionID) {
@@ -495,13 +483,10 @@ contract NashEscrow is
         }
 
         // prevent an extravagant loop.
-        if (_paginationCount > nextTransactionID) {
+        if (PAGINATION_COUNT > nextTransactionID) {
             paginationCount = nextTransactionID;
         }
 
-        if (_paginationCount > 15) {
-            paginationCount = 15;
-        }
         NashTransaction[] memory transactions = new NashTransaction[](
             paginationCount
         );
@@ -670,7 +655,7 @@ contract NashEscrow is
     modifier balanceGreaterThanAmount(uint256 _transactionid) {
         NashTransaction storage wtx = escrowTransactions[_transactionid];
         require(
-            ERC20(wtx.exchangeToken).balanceOf(address(msg.sender)) >
+            IERC20(wtx.exchangeToken).balanceOf(address(msg.sender)) >
                 wtx.amount,
             "Your balance must be greater than the transaction amount."
         );

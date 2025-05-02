@@ -9,7 +9,6 @@ import type {
   CallOverrides,
   ContractTransaction,
   Overrides,
-  PayableOverrides,
   PopulatedTransaction,
   Signer,
   utils,
@@ -463,7 +462,7 @@ export interface NashEscrow extends BaseContract {
     agentAcceptDepositTransaction(
       _transactionid: PromiseOrValue<BigNumberish>,
       _paymentDetails: PromiseOrValue<string>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     agentAcceptWithdrawalTransaction(
@@ -479,7 +478,7 @@ export interface NashEscrow extends BaseContract {
 
     cancelTransaction(
       _transactionid: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     checkLockedTokenAmount(
@@ -544,7 +543,7 @@ export interface NashEscrow extends BaseContract {
       _amount: PromiseOrValue<BigNumberish>,
       _exchangeToken: PromiseOrValue<string>,
       _exchangeTokenLabel: PromiseOrValue<string>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     isTxInStatus(
@@ -574,7 +573,7 @@ export interface NashEscrow extends BaseContract {
   agentAcceptDepositTransaction(
     _transactionid: PromiseOrValue<BigNumberish>,
     _paymentDetails: PromiseOrValue<string>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   agentAcceptWithdrawalTransaction(
@@ -590,7 +589,7 @@ export interface NashEscrow extends BaseContract {
 
   cancelTransaction(
     _transactionid: PromiseOrValue<BigNumberish>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   checkLockedTokenAmount(
@@ -653,7 +652,7 @@ export interface NashEscrow extends BaseContract {
     _amount: PromiseOrValue<BigNumberish>,
     _exchangeToken: PromiseOrValue<string>,
     _exchangeTokenLabel: PromiseOrValue<string>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   isTxInStatus(
@@ -843,7 +842,7 @@ export interface NashEscrow extends BaseContract {
     agentAcceptDepositTransaction(
       _transactionid: PromiseOrValue<BigNumberish>,
       _paymentDetails: PromiseOrValue<string>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     agentAcceptWithdrawalTransaction(
@@ -859,7 +858,7 @@ export interface NashEscrow extends BaseContract {
 
     cancelTransaction(
       _transactionid: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     checkLockedTokenAmount(
@@ -922,7 +921,7 @@ export interface NashEscrow extends BaseContract {
       _amount: PromiseOrValue<BigNumberish>,
       _exchangeToken: PromiseOrValue<string>,
       _exchangeTokenLabel: PromiseOrValue<string>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     isTxInStatus(
@@ -953,7 +952,7 @@ export interface NashEscrow extends BaseContract {
     agentAcceptDepositTransaction(
       _transactionid: PromiseOrValue<BigNumberish>,
       _paymentDetails: PromiseOrValue<string>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     agentAcceptWithdrawalTransaction(
@@ -969,7 +968,7 @@ export interface NashEscrow extends BaseContract {
 
     cancelTransaction(
       _transactionid: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     checkLockedTokenAmount(
@@ -1036,7 +1035,7 @@ export interface NashEscrow extends BaseContract {
       _amount: PromiseOrValue<BigNumberish>,
       _exchangeToken: PromiseOrValue<string>,
       _exchangeTokenLabel: PromiseOrValue<string>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     isTxInStatus(
