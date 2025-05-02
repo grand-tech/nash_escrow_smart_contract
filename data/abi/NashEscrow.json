@@ -10,9 +10,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -25,14 +25,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -53,11 +58,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -85,9 +85,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -100,14 +100,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -128,11 +133,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -160,9 +160,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -175,14 +175,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -203,11 +208,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -235,9 +235,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -250,14 +250,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -278,11 +283,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -342,9 +342,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -357,14 +357,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -385,11 +390,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -417,9 +417,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -432,14 +432,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -460,11 +465,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -492,9 +492,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -507,14 +507,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -535,11 +540,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -567,9 +567,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -582,14 +582,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -610,11 +615,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -744,25 +744,7 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "countSuccessfulTransactions",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_paginationCount",
-        "type": "uint256"
-      },
       {
         "internalType": "uint256",
         "name": "_startingPoint",
@@ -789,9 +771,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -804,14 +786,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -834,11 +821,6 @@
             "type": "string"
           },
           {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
-          },
-          {
             "internalType": "string",
             "name": "exchangeTokenLabel",
             "type": "string"
@@ -847,19 +829,6 @@
         "internalType": "struct NashEscrow.NashTransaction[]",
         "name": "",
         "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getNextTransactionIndex",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -883,9 +852,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -898,14 +867,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -926,11 +900,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -964,9 +933,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -979,14 +948,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -1009,11 +983,6 @@
             "type": "string"
           },
           {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
-          },
-          {
             "internalType": "string",
             "name": "exchangeTokenLabel",
             "type": "string"
@@ -1029,11 +998,6 @@
   },
   {
     "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_paginationCount",
-        "type": "uint256"
-      },
       {
         "internalType": "uint256",
         "name": "_startingPoint",
@@ -1055,9 +1019,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -1070,14 +1034,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -1098,11 +1067,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -1181,9 +1145,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "enum NashEscrow.TransactionType",
-            "name": "txType",
-            "type": "uint8"
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
           },
           {
             "internalType": "address",
@@ -1196,14 +1160,19 @@
             "type": "address"
           },
           {
-            "internalType": "enum NashEscrow.Status",
-            "name": "status",
+            "internalType": "address",
+            "name": "exchangeToken",
+            "type": "address"
+          },
+          {
+            "internalType": "enum NashEscrow.TransactionType",
+            "name": "txType",
             "type": "uint8"
           },
           {
-            "internalType": "uint256",
-            "name": "amount",
-            "type": "uint256"
+            "internalType": "enum NashEscrow.Status",
+            "name": "status",
+            "type": "uint8"
           },
           {
             "internalType": "bool",
@@ -1224,11 +1193,6 @@
             "internalType": "string",
             "name": "clientPaymentDetails",
             "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "exchangeToken",
-            "type": "address"
           },
           {
             "internalType": "string",
@@ -1259,6 +1223,19 @@
   },
   {
     "inputs": [],
+    "name": "nextTransactionID",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "owner",
     "outputs": [
       {
@@ -1275,6 +1252,19 @@
     "name": "renounceOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "successfulTransactionsCounter",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

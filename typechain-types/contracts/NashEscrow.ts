@@ -30,44 +30,44 @@ import type {
 export declare namespace NashEscrow {
   export type NashTransactionStruct = {
     id: PromiseOrValue<BigNumberish>;
-    txType: PromiseOrValue<BigNumberish>;
+    amount: PromiseOrValue<BigNumberish>;
     clientAddress: PromiseOrValue<string>;
     agentAddress: PromiseOrValue<string>;
+    exchangeToken: PromiseOrValue<string>;
+    txType: PromiseOrValue<BigNumberish>;
     status: PromiseOrValue<BigNumberish>;
-    amount: PromiseOrValue<BigNumberish>;
     agentApproval: PromiseOrValue<boolean>;
     clientApproval: PromiseOrValue<boolean>;
     agentPaymentDetails: PromiseOrValue<string>;
     clientPaymentDetails: PromiseOrValue<string>;
-    exchangeToken: PromiseOrValue<string>;
     exchangeTokenLabel: PromiseOrValue<string>;
   };
 
   export type NashTransactionStructOutput = [
     BigNumber,
-    number,
-    string,
-    string,
-    number,
     BigNumber,
-    boolean,
-    boolean,
     string,
+    string,
+    string,
+    number,
+    number,
+    boolean,
+    boolean,
     string,
     string,
     string
   ] & {
     id: BigNumber;
-    txType: number;
+    amount: BigNumber;
     clientAddress: string;
     agentAddress: string;
+    exchangeToken: string;
+    txType: number;
     status: number;
-    amount: BigNumber;
     agentApproval: boolean;
     clientApproval: boolean;
     agentPaymentDetails: string;
     clientPaymentDetails: string;
-    exchangeToken: string;
     exchangeTokenLabel: string;
   };
 }
@@ -81,18 +81,18 @@ export interface NashEscrowInterface extends utils.Interface {
     "checkLockedTokenAmount(address)": FunctionFragment;
     "clientConfirmPayment(uint256)": FunctionFragment;
     "clientWritePaymentInformation(uint256,string)": FunctionFragment;
-    "countSuccessfulTransactions()": FunctionFragment;
-    "getMyTransactions(uint256,uint256,uint8[],address)": FunctionFragment;
-    "getNextTransactionIndex()": FunctionFragment;
+    "getMyTransactions(uint256,uint8[],address)": FunctionFragment;
     "getNextUnpairedTransaction(uint256)": FunctionFragment;
     "getTransactionByIndex(uint256)": FunctionFragment;
-    "getTransactions(uint256,uint256,uint8)": FunctionFragment;
+    "getTransactions(uint256,uint8)": FunctionFragment;
     "initialize()": FunctionFragment;
     "initializeDepositTransaction(uint256,address,string)": FunctionFragment;
     "initializeWithdrawalTransaction(uint256,address,string)": FunctionFragment;
-    "isTxInStatus((uint256,uint8,address,address,uint8,uint256,bool,bool,string,string,address,string),uint8[])": FunctionFragment;
+    "isTxInStatus((uint256,uint256,address,address,address,uint8,uint8,bool,bool,string,string,string),uint8[])": FunctionFragment;
+    "nextTransactionID()": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "successfulTransactionsCounter()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "withdrawLockedTokens(address,uint256)": FunctionFragment;
   };
@@ -106,9 +106,7 @@ export interface NashEscrowInterface extends utils.Interface {
       | "checkLockedTokenAmount"
       | "clientConfirmPayment"
       | "clientWritePaymentInformation"
-      | "countSuccessfulTransactions"
       | "getMyTransactions"
-      | "getNextTransactionIndex"
       | "getNextUnpairedTransaction"
       | "getTransactionByIndex"
       | "getTransactions"
@@ -116,8 +114,10 @@ export interface NashEscrowInterface extends utils.Interface {
       | "initializeDepositTransaction"
       | "initializeWithdrawalTransaction"
       | "isTxInStatus"
+      | "nextTransactionID"
       | "owner"
       | "renounceOwnership"
+      | "successfulTransactionsCounter"
       | "transferOwnership"
       | "withdrawLockedTokens"
   ): FunctionFragment;
@@ -151,21 +151,12 @@ export interface NashEscrowInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "countSuccessfulTransactions",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "getMyTransactions",
     values: [
-      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>[],
       PromiseOrValue<string>
     ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getNextTransactionIndex",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getNextUnpairedTransaction",
@@ -177,11 +168,7 @@ export interface NashEscrowInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getTransactions",
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "initialize",
@@ -207,9 +194,17 @@ export interface NashEscrowInterface extends utils.Interface {
     functionFragment: "isTxInStatus",
     values: [NashEscrow.NashTransactionStruct, PromiseOrValue<BigNumberish>[]]
   ): string;
+  encodeFunctionData(
+    functionFragment: "nextTransactionID",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "successfulTransactionsCounter",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -250,15 +245,7 @@ export interface NashEscrowInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "countSuccessfulTransactions",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "getMyTransactions",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getNextTransactionIndex",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -286,9 +273,17 @@ export interface NashEscrowInterface extends utils.Interface {
     functionFragment: "isTxInStatus",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "nextTransactionID",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "successfulTransactionsCounter",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -497,19 +492,12 @@ export interface NashEscrow extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    countSuccessfulTransactions(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
     getMyTransactions(
-      _paginationCount: PromiseOrValue<BigNumberish>,
       _startingPoint: PromiseOrValue<BigNumberish>,
       _status: PromiseOrValue<BigNumberish>[],
       myAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[NashEscrow.NashTransactionStructOutput[]]>;
-
-    getNextTransactionIndex(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getNextUnpairedTransaction(
       _transactionid: PromiseOrValue<BigNumberish>,
@@ -522,7 +510,6 @@ export interface NashEscrow extends BaseContract {
     ): Promise<[NashEscrow.NashTransactionStructOutput]>;
 
     getTransactions(
-      _paginationCount: PromiseOrValue<BigNumberish>,
       _startingPoint: PromiseOrValue<BigNumberish>,
       _status: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -552,11 +539,17 @@ export interface NashEscrow extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    nextTransactionID(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    successfulTransactionsCounter(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
@@ -608,17 +601,12 @@ export interface NashEscrow extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  countSuccessfulTransactions(overrides?: CallOverrides): Promise<BigNumber>;
-
   getMyTransactions(
-    _paginationCount: PromiseOrValue<BigNumberish>,
     _startingPoint: PromiseOrValue<BigNumberish>,
     _status: PromiseOrValue<BigNumberish>[],
     myAddress: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<NashEscrow.NashTransactionStructOutput[]>;
-
-  getNextTransactionIndex(overrides?: CallOverrides): Promise<BigNumber>;
 
   getNextUnpairedTransaction(
     _transactionid: PromiseOrValue<BigNumberish>,
@@ -631,7 +619,6 @@ export interface NashEscrow extends BaseContract {
   ): Promise<NashEscrow.NashTransactionStructOutput>;
 
   getTransactions(
-    _paginationCount: PromiseOrValue<BigNumberish>,
     _startingPoint: PromiseOrValue<BigNumberish>,
     _status: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -661,11 +648,15 @@ export interface NashEscrow extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  nextTransactionID(overrides?: CallOverrides): Promise<BigNumber>;
+
   owner(overrides?: CallOverrides): Promise<string>;
 
   renounceOwnership(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  successfulTransactionsCounter(overrides?: CallOverrides): Promise<BigNumber>;
 
   transferOwnership(
     newOwner: PromiseOrValue<string>,
@@ -717,17 +708,12 @@ export interface NashEscrow extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    countSuccessfulTransactions(overrides?: CallOverrides): Promise<BigNumber>;
-
     getMyTransactions(
-      _paginationCount: PromiseOrValue<BigNumberish>,
       _startingPoint: PromiseOrValue<BigNumberish>,
       _status: PromiseOrValue<BigNumberish>[],
       myAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<NashEscrow.NashTransactionStructOutput[]>;
-
-    getNextTransactionIndex(overrides?: CallOverrides): Promise<BigNumber>;
 
     getNextUnpairedTransaction(
       _transactionid: PromiseOrValue<BigNumberish>,
@@ -740,7 +726,6 @@ export interface NashEscrow extends BaseContract {
     ): Promise<NashEscrow.NashTransactionStructOutput>;
 
     getTransactions(
-      _paginationCount: PromiseOrValue<BigNumberish>,
       _startingPoint: PromiseOrValue<BigNumberish>,
       _status: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -768,9 +753,15 @@ export interface NashEscrow extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    nextTransactionID(overrides?: CallOverrides): Promise<BigNumber>;
+
     owner(overrides?: CallOverrides): Promise<string>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
+
+    successfulTransactionsCounter(
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
@@ -877,17 +868,12 @@ export interface NashEscrow extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    countSuccessfulTransactions(overrides?: CallOverrides): Promise<BigNumber>;
-
     getMyTransactions(
-      _paginationCount: PromiseOrValue<BigNumberish>,
       _startingPoint: PromiseOrValue<BigNumberish>,
       _status: PromiseOrValue<BigNumberish>[],
       myAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    getNextTransactionIndex(overrides?: CallOverrides): Promise<BigNumber>;
 
     getNextUnpairedTransaction(
       _transactionid: PromiseOrValue<BigNumberish>,
@@ -900,7 +886,6 @@ export interface NashEscrow extends BaseContract {
     ): Promise<BigNumber>;
 
     getTransactions(
-      _paginationCount: PromiseOrValue<BigNumberish>,
       _startingPoint: PromiseOrValue<BigNumberish>,
       _status: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -930,10 +915,16 @@ export interface NashEscrow extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    nextTransactionID(overrides?: CallOverrides): Promise<BigNumber>;
+
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    successfulTransactionsCounter(
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     transferOwnership(
@@ -987,19 +978,10 @@ export interface NashEscrow extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    countSuccessfulTransactions(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     getMyTransactions(
-      _paginationCount: PromiseOrValue<BigNumberish>,
       _startingPoint: PromiseOrValue<BigNumberish>,
       _status: PromiseOrValue<BigNumberish>[],
       myAddress: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getNextTransactionIndex(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1014,7 +996,6 @@ export interface NashEscrow extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getTransactions(
-      _paginationCount: PromiseOrValue<BigNumberish>,
       _startingPoint: PromiseOrValue<BigNumberish>,
       _status: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1044,10 +1025,16 @@ export interface NashEscrow extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    nextTransactionID(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    successfulTransactionsCounter(
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(

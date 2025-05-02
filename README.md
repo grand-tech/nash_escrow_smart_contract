@@ -36,6 +36,29 @@ https://forum.openzeppelin.com/t/how-to-use-ownable-with-upgradeable-contract/33
 
 
 
+## Auditing.
+
+Using mythril.
+```
+source mythril-env/bin/activate;
+
+ clear; myth analyze contracts/NashEscrow.sol --solc-json solc.json
+
+```
+
+
+Using Cyfrin Aderyn.
+https://www.cyfrin.io/blog/find-vulnerabilities-in-your-solidity-codebase-using-cyfrin-aderyn
+```
+aderyn
+```
+
+Using slither
+```
+slither .
+```
+
+
 ## Front end integration with typescript.
 Breaks down some of the steps taken to integrate the smart 
 contract with a typescript based front end.
