@@ -74,7 +74,7 @@ describe("Client write payment information", function () {
     );
 
     // Assert autoincrement of next transaction id.
-    const nextTxIndex = await nashEscrow.getNextTransactionIndex();
+    const nextTxIndex = await nashEscrow.nextTransactionID();
     expect(nextTxIndex).to.equal(
       1,
       "Next transaction index has been updated properly"

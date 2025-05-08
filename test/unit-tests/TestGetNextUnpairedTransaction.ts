@@ -13,7 +13,7 @@ describe("Test Get Next un-paired transaction.", function () {
 
     await USDc.approve(nashEscrow.address, 10);
 
-    expect(await nashEscrow.getNextTransactionIndex()).to.equal(0);
+    expect(await nashEscrow.nextTransactionID()).to.equal(0);
 
     await expect(
       nashEscrow.initializeDepositTransaction(5, USDc.address, tokenLabel)
@@ -59,7 +59,7 @@ describe("Test Get transactions.", function () {
 
     await USDc.approve(nashEscrow.address, 10);
 
-    expect(await nashEscrow.getNextTransactionIndex()).to.equal(0);
+    expect(await nashEscrow.nextTransactionID()).to.equal(0);
 
     await expect(
       nashEscrow.initializeDepositTransaction(5, USDc.address, tokenLabel)
@@ -84,7 +84,7 @@ describe("Test Get transactions.", function () {
     ).to.emit(nashEscrow, "AgentPairingEvent");
 
     // Exact value.
-    const tx = await nashEscrow.connect(address2).getTransactions(5, 5, 0);
+    const tx = await nashEscrow.connect(address2).getTransactions(5, 0);
     for (let index = 0; index < tx.length; index++) {
       const nashTx = convertToNashTransactionObj(
         Array.from(tx[index], (x) => `${x}`)
@@ -103,7 +103,7 @@ describe("Test Get My transactions.", function () {
 
     await USDc.approve(nashEscrow.address, 10);
 
-    expect(await nashEscrow.getNextTransactionIndex()).to.equal(0);
+    expect(await nashEscrow.nextTransactionID()).to.equal(0);
 
     await expect(
       nashEscrow.initializeDepositTransaction(5, USDc.address, tokenLabel)
@@ -150,7 +150,7 @@ describe("Test Get My transactions.", function () {
 
     const txs = await nashEscrow
       .connect(address2)
-      .getMyTransactions(5, 5, [1, 3, 2], address2.getAddress());
+      .getMyTransactions(5, [1, 3, 2], address2.getAddress());
     expect(txs.length).equal(1);
 
     const nashTx = convertToNashTransactionObj(

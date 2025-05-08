@@ -17,7 +17,7 @@ describe("Deposit E2E", function () {
     const clientSigner = address2;
 
     await USDc.approve(nashEscrow.address, 10);
-    expect(await nashEscrow.getNextTransactionIndex()).to.equal(0);
+    expect(await nashEscrow.nextTransactionID()).to.equal(0);
 
     let agentBalance = await USDc.balanceOf(agentSigner.address);
     let clientBalance = await USDc.balanceOf(clientSigner.address);

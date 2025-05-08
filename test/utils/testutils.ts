@@ -70,16 +70,16 @@ export function convertToNashTransactionObj(
 ): NashEscrowTransaction {
   const nashTx: NashEscrowTransaction = {
     id: parseInt(tx[0]),
-    txType: parseInt(tx[1]),
+    amount: parseInt(tx[1]),
     clientAddress: tx[2],
     agentAddress: tx[3],
-    status: parseInt(tx[4]),
-    amount: parseInt(tx[5]),
-    agentApproval: tx[6],
-    clientApproval: tx[7],
-    agentPaymentDetails: tx[8],
-    clientPaymentDetails: tx[9],
-    exchangeToken: tx[10],
+    exchangeToken: tx[4],
+    txType: parseInt(tx[5]),
+    status: parseInt(tx[6]),
+    agentApproval: tx[7],
+    clientApproval: tx[8],
+    agentPaymentDetails: tx[9],
+    clientPaymentDetails: tx[10],
     exchangeTokenLabel: tx[11],
   };
 
