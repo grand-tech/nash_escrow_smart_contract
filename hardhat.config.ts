@@ -8,8 +8,8 @@ import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 // import "solidity-coverage"; TODO: figure out how to report coverage
 import "hardhat-abi-exporter";
-import "hardhat-celo";
 import "@openzeppelin/hardhat-upgrades";
+import 'solidity-coverage';
 
 dotenv.config();
 

@@ -108,3 +108,4 @@ artifacts/
 cache/
 .openzeppelin/unknown-31337.json
 .env
+coverage.json
