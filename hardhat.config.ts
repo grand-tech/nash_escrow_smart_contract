@@ -30,12 +30,12 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.26",
+        version: "0.8.33",
         settings: {
           evmVersion: "cancun",
           optimizer: {
             enabled: true,
-            runs: 1000,
+            runs: 1,
           },
         },
       },
@@ -51,19 +51,24 @@ const config: HardhatUserConfig = {
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
       allowUnlimitedContractSize: true,
     },
-    alfajores: {
-      url: "https://alfajores-forno.celo-testnet.org",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-      chainId: 44787,
-      allowUnlimitedContractSize: true,
-    },
     celo: {
       url: "https://forno.celo.org",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
       allowUnlimitedContractSize: true,
       chainId: 42220,
+    },
+    celoSepolia: {
+      url: "https://celo-sepolia.drpc.org",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      chainId: 11142220,
+    },
+    sepolia: {
+      url: process.env.SEPOLIA_URL || "https://ethereum-sepolia-rpc.publicnode.com",
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+      chainId: 11155111,
     },
   },
   gasReporter: {
@@ -72,8 +77,8 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      alfajores: "P2NMSA6X7YIQ6MCQ1D5WSQ2QQNDC2QNHX8",
       celo: "P2NMSA6X7YIQ6MCQ1D5WSQ2QQNDC2QNHX8",
+      sepolia: process.env.ETHERSCAN_API_KEY || "",
     },
   },
   abiExporter: {

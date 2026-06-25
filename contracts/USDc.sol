@@ -3,7 +3,7 @@
 /**
  *Submitted for verification at Etherscan.io on 2020-01-31
  */
-pragma solidity 0.8.26;
+pragma solidity ^0.8.26;
 
 // import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
